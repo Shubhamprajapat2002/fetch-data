@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react'
+import { useState, useEffect } from 'react';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+  const [data, setData] = useState([])
+
+  const getData = () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(myjson => {
+
+        // console.log(data)
+        setData(myjson)
+      })
+  }
+
+  useEffect(() => {
+    getData()
+
+  }, [])
+
+
+
+  return (
+    <>
+    
+    <tr>
+                <td style={{padding: "40px"}}>Name</td>
+                <td style={{padding: "40px"}}>email</td>
+               
+              </tr>
+    
+  
+      <div>
+        {
+          data.map((val) => {
+            return (
+              <>
+              
+                <table>
+                  
+                  <tr>
+                    <td style={{padding: "40px"}}>{val.name}</td>
+                   
+                    <td style={{marginLeft: "90px"}}>{val.email}</td>
+                  </tr>
+
+                </table>
+
+
+                {/* <h3>{val.name}</h3>
+              <h3>{val.username}</h3>
+              <h3>{val.email}</h3> */}
+
+
+
+              </>
+
+            )
+          })
+        }
+      </div>
+      </>
+   
+  )
+}
 export default App;
